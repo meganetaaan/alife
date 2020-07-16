@@ -1,6 +1,6 @@
-const SPACE_SIZE = 140;
-const CYCLE = 70;
-const RULE = 30;
+const SPACE_SIZE = 200;
+const CYCLE = 500;
+const RULE = 121;
 
 let state = Array(SPACE_SIZE).fill(0);
 let nextState = Array(SPACE_SIZE).fill(0);
@@ -26,10 +26,12 @@ function tick() {
   [state, nextState] = [nextState, state];
 }
 
-state[Math.floor(state.length / 2)] = 1;
+init();
+// state[Math.floor(state.length / 2)] = 1;
 
 for (let i = 0; i < CYCLE; i++) {
   console.log(
+    // state.join(""),
     state.map((n) => {
       return n ? "🥺" : "⚪️";
     }).join(""),
