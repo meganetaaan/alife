@@ -23,13 +23,8 @@ class Matrix {
   toString(): string {
     let str = "";
     for (let i = 0; i < this.#height; i++) {
-      const start = i * this.#height;
-      str += this.#matrix.slice(start, start + this.#width).join("") + "\n";
-        // this.#matrix.slice(start, start + this.#width).join("").replaceAll(
-        //   "0",
-        //   "️🙂",
-        // )
-        //   .replaceAll("1", "🥺") + "\n";
+      const start = i * this.#width;
+      str += this.#matrix.slice(start, start + this.#width - 1).join("") + "\n";
     }
     return str;
   }
