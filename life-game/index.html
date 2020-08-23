@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    .wrapper {
+      overflow: hidden;
+    }
+  </style>
+  <title>Conway's Game of Life</title>
+</head>
+<body>
+  
+  <script type="module">
+    import {LifeGame} from "./lifegame_set.js"
+    const query = (new URL(document.location)).searchParams;
+    const windowHeight = window.innerHeight
+    const windowWidth = window.innerWidth
+    const GLYPH = query.get('glyph')
+    const CELLSIZE = 12
+    const COLOR = query.get('color') ?? '#888'
+    const P = Number(query.get('p') ?? 0.3)
+    const WIDTH = Math.floor(windowWidth / CELLSIZE)
+    const HEIGHT = Math.floor(windowHeight / CELLSIZE)
+
+    function drawGrid (ctx) {
+      ctx.strokeStyle = '#DDD';
+      ctx.beginPath()
+      for (let i = 1; i < WIDTH; i++) {
+        ctx.moveTo(i * CELLSIZE, 0)
+        ctx.lineTo(i * CELLSIZE, HEIGHT * CELLSIZE)
+      }
+      for (let i = 1; i < HEIGHT; i++) {
+        ctx.moveTo(0, i * CELLSIZE)
+        ctx.lineTo(WIDTH * CELLSIZE, i * CELLSIZE)
+      }
+      ctx.stroke()
+    }
+    function draw (ctx, lifegame) {
+      ctx.fillStyle = COLOR;
+      drawGrid(ctx)
+      lifegame.cells.forEach((c) => {
+      const top = LifeGame.top(c)
+      const left = LifeGame.left(c)
+      if (GLYPH != null) {
+        ctx.fillText(GLYPH, left * CELLSIZE, top * CELLSIZE, CELLSIZE);
+      } else {
+        ctx.fillRect(left * CELLSIZE, top * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
+      }
+    })
+
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+      const wrapper = document.createElement('div')
+      const canvas = document.createElement('canvas')
+      wrapper.classList.add('wrapper')
+      wrapper.height = windowHeight
+      wrapper.width = windowWidth
+      canvas.height = HEIGHT * CELLSIZE
+      canvas.width = WIDTH * CELLSIZE
+
+      document.body.appendChild(wrapper)
+      wrapper.appendChild(canvas)
+
+      const lifegame = new LifeGame({
+        height: HEIGHT,
+        width: WIDTH
+      })
+      lifegame.init(P)
+      const ctx = canvas.getContext('2d')
+      setInterval(() => {
+        lifegame.tick()
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        requestAnimationFrame(draw.bind(null, ctx, lifegame));
+      }, 1000 / 12.5)
+    })
+  </script>
+</body>
+</html>
