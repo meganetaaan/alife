@@ -1,7 +1,4 @@
 type Vector3 = [number, number, number];
-createVector3(n): Vector3 {
-
-}
 class Boid {
   COHESION_FORCE = 0.0008;
   SEPARATION_FORCE = 0.4;
@@ -24,7 +21,7 @@ class Boid {
       const x_this = this.#x[i];
       const v_this = this.#v[i];
 
-      const distances = calcNorm(x_that, x_this);
+      // const distances = calcNorm(x_that, x_this);
     }
   }
 }

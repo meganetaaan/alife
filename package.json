@@ -1,0 +1,29 @@
+{
+  "name": "alife",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && cp src/life-game/index.html dist/life-game/",
+    "serve": "http-server -p 8000",
+    "deploy": "gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/meganetaaan/alife.git"
+  },
+  "keywords": [],
+  "author": "Shinya Ishikawa <ishikawa.s.1027@gmail.com> (https://meganetaaan.github.io/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meganetaaan/alife/issues"
+  },
+  "homepage": "https://github.com/meganetaaan/alife#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "gh-pages": "^3.1.0",
+    "http-server": "^0.12.3",
+    "typescript": "^4.0.2"
+  }
+}

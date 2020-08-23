@@ -82,7 +82,7 @@ class LifeGame {
     }
   }
   show(): void {
-    console.log(this.#state.toString())
+    // console.log(this.#state.toString())
   }
   tick(): void {
     const state = this.#state;

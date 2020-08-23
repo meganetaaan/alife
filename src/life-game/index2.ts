@@ -4,10 +4,10 @@ const WIDTH = 256;
 type Cell = number;
 type Cells = Set<Cell>;
 
-function top(cell: Cell): number {
+function calcTop(cell: Cell): number {
   return cell >> 8;
 }
-function left(cell: Cell): number {
+function calcLeft(cell: Cell): number {
   return cell & 0xff;
 }
 function cell(top: number, left: number) {
@@ -15,10 +15,10 @@ function cell(top: number, left: number) {
 }
 
 function countNeighbors(c: Cell, cs: Cells): number {
-  const t = top(c)
+  const t = calcTop(c)
   const st = t === 0 ? HEIGHT - 1 : t - 1
   const gt = t === HEIGHT - 1 ? 0 : t + 1
-  const l = left(c)
+  const l = calcLeft(c)
   const sl = l === 0 ? WIDTH - 1 : l - 1
   const gl = l === WIDTH - 1 ? 0 : l + 1
   const count =
@@ -39,10 +39,10 @@ function survive(c: Cell, cs: Cells): boolean {
 }
 
 function addNeighbors(c: Cell, cs: Cells): void {
-  const t = top(c);
+  const t = calcTop(c);
   const st = t === 0 ? HEIGHT - 1 : t - 1;
   const gt = t === HEIGHT - 1 ? 0 : t + 1;
-  const l = left(c);
+  const l = calcLeft(c);
   const sl = l === 0 ? WIDTH - 1 : l - 1;
   const gl = l === WIDTH - 1 ? 0 : l + 1;
   cs.add(cell(st, sl));
@@ -90,7 +90,7 @@ class LifeGame {
     const arr = this.#arr
     arr.fill(0)
     for (let cell of this.cells) {
-      const idx = top(cell) * WIDTH + left(cell)
+      const idx = calcTop(cell) * WIDTH + calcLeft(cell)
       arr[idx] = 1
     }
     const rows = []
